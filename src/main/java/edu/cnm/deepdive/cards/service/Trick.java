@@ -46,8 +46,27 @@ public class Trick {
       }
     }
 
-    blackPile.sort(new BlackFirstComparator());
-    redPile.sort(new RedFirstComparator());
+    blackPile.sort(new Comparator<Card>() {
+      @Override
+      public int compare(Card card1, Card card2) {
+        int result = card1.getColor().compareTo(card2.getColor());
+        if (result == 0) {
+          result = card1.compareTo(card2);
+        }
+        return result;
+      }
+    });
+
+    redPile.sort(new Comparator<Card>() {
+      @Override
+      public int compare(Card card1, Card card2) {
+        int result = -card1.getColor().compareTo(card2.getColor());
+        if (result == 0) {
+          result = card1.compareTo(card2);
+        }
+        return result;
+      }
+    });
   }
 
   public void reveal() {
@@ -56,29 +75,3 @@ public class Trick {
   }
 
 }
-
-class RedFirstComparator implements Comparator<Card> {
-
-  @Override
-  public int compare(Card card1, Card card2) {
-    int result = -card1.getColor().compareTo(card2.getColor());
-    if (result == 0) {
-      result = card1.compareTo(card2);
-    }
-    return result;
-  }
-}
-
-class BlackFirstComparator implements Comparator<Card> {
-
-  @Override
-  public int compare(Card card1, Card card2) {
-    int result = card1.getColor().compareTo(card2.getColor());
-    if (result == 0) {
-      result = card1.compareTo(card2);
-    }
-    return result;
-  }
-}
-
-
