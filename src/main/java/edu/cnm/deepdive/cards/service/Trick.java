@@ -46,26 +46,20 @@ public class Trick {
       }
     }
 
-    blackPile.sort(new Comparator<Card>() {
-      @Override
-      public int compare(Card card1, Card card2) {
-        int result = card1.getColor().compareTo(card2.getColor());
-        if (result == 0) {
-          result = card1.compareTo(card2);
-        }
-        return result;
+    blackPile.sort((card1, card2) -> {
+      int result = card1.getColor().compareTo(card2.getColor());
+      if (result == 0) {
+        result = card1.compareTo(card2);
       }
+      return result;
     });
 
-    redPile.sort(new Comparator<Card>() {
-      @Override
-      public int compare(Card card1, Card card2) {
-        int result = -card1.getColor().compareTo(card2.getColor());
-        if (result == 0) {
-          result = card1.compareTo(card2);
-        }
-        return result;
+    redPile.sort((card1, card2) -> {
+      int result = card2.getColor().compareTo(card1.getColor());
+      if (result == 0) {
+        result = card1.compareTo(card2);
       }
+      return result;
     });
   }
 
